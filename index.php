@@ -27,7 +27,7 @@ function searchById($xmlstring, $value) {
         if(intval($cat['id']) === intval($value)){
             $result['type'] = 'category';
             $result['name'] = (string)$cat;
-            $cat_addition = countOffersInCat($xmlstring, $value);
+            $cat_addition = countOffersInCat($xmlstring, intval($cat['id']));
             $result['count'] = $cat_addition['count'];
             $result['minprice'] = $cat_addition['minprice'];
 
@@ -52,12 +52,14 @@ function searchById($xmlstring, $value) {
 
 if (is_numeric($value)) {
     $id_search = searchById($xml, $value);
-
-    $json = json_encode($id_search); 
-
-    echo $json;
-    
+    foreach ($id_search as $res) {
+        array_push($final, $res);
+    }    
 }
+
+$json = json_encode($final); 
+
+echo $json;
 
 /*
 [
