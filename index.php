@@ -50,6 +50,27 @@ function searchById($xmlstring, $value) {
     return $id_search_result;
 }
 
+function searchByString($xmlstring, $value){
+    $id_search_result = array();
+    foreach ($xmlstring->shop->categories->category as $cat) {
+        $pos = mb_stripos((string)$cat, (string)$value);
+        if ($pos !== false) {
+            echo "Нашел '$value' в '$cat' в позиции $pos <br>";
+        }
+        $result = null;
+    }
+
+    foreach ($xmlstring->shop->offers->offer as $off) {
+        $pos = mb_stripos((string)$off->name, (string)$value);
+        if ($pos !== false) {
+            echo "Нашел '$value' в '$off->name' в товаре $pos <br>";
+        }
+        $result = null;
+    }
+}
+
+searchByString($xml, $value);
+
 if (is_numeric($value)) {
     $id_search = searchById($xml, $value);
     foreach ($id_search as $res) {
