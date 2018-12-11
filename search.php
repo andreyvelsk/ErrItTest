@@ -80,7 +80,8 @@ function searchByString($xmlstring, $values){
             $result['count'] = $cat_addition['count'];
             $result['minprice'] = $cat_addition['minprice'];
             $result['rel'] = $rel;
-            echo json_encode($result)."<br>"; 
+            array_push($id_search_result, $result);
+            
         }     
         $result=null;   
     }
@@ -101,13 +102,20 @@ function searchByString($xmlstring, $values){
             $result['price'] = (string)$off->price;
             $result['available'] = (string)$off['available'];
             $result['rel'] = $rel;
-            echo json_encode($result)."<br>"; 
+            array_push($id_search_result, $result);
         }   
     }
+
+    function cmp($a, $b) { 
+        // return strcmp($a["rel"], $b["rel"]); 
+        return intval($a["rel"]) < intval($b["rel"]);
+    }
+
+    usort($id_search_result, "cmp"); 
+    return $id_search_result;
 }
 
-searchByString($xml, $value);
-echo count($value);
+$string_search = searchByString($xml, $value);
 if (count($value) === 1 && is_numeric($value[0])) {
     $id_search = searchById($xml, $value[0]);
     foreach ($id_search as $res) {
@@ -115,7 +123,23 @@ if (count($value) === 1 && is_numeric($value[0])) {
     }
 }
 
-$json = json_encode($final); 
+foreach ($string_search as $strres) {
+    array_push($final, $strres);
+}
+
+$final_cut = array();
+if(count($final) > 5){
+    for ($i = 0; $i < 5; $i++) {
+        $final_cut[$i] = $final[$i];
+    }
+}
+else {
+    for ($i = 0; $i < count($final); $i++) {
+        $final_cut[$i] = $final[$i];
+    }
+}
+
+$json = json_encode($final_cut, JSON_UNESCAPED_UNICODE); 
 
 echo $json;
 ?>
