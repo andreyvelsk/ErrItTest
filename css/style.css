@@ -1,0 +1,46 @@
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 18px;
+  margin: 0;
+}
+
+*, :after, :before {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.container-fluid {
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 50px;
+}
+
+.container-fluid .searchform {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.container-fluid .searchform label {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.container-fluid .searchform input {
+  display: inline-block;
+  width: 500px;
+  padding: .375rem .75rem;
+  font-size: 1.8rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 2px solid #ced4da;
+  border-radius: .25rem;
+}
+/*# sourceMappingURL=style.css.map */
