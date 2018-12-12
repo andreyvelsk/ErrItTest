@@ -9,12 +9,14 @@ body
 
 .container-fluid
     width: 100%
-    padding-left: 15px
-    padding-right: 15px
+    padding-left: 15rem
+    padding-right: 15rem
     margin-right: auto
     margin-left: auto
-    margin-top: 50px
-    .searchform
+    margin-top: 5rem
+
+.search
+    &-form
         text-align: center
         font-size: 2.5rem
         label
@@ -31,3 +33,17 @@ body
             background-clip: padding-box
             border: 2px solid #ced4da
             border-radius: .25rem
+    &-output
+        padding
+        .item
+            display: flex
+            flex-wrap: nowrap
+            justify-content: flex-start
+            &_description
+                padding-left: 2rem
+            
+            &_image
+                width: 20rem
+                display: inline-block
+                img
+                    width: 100%
