@@ -1,5 +1,8 @@
 <?php
 
+$word = 'стемминга';
+include_once('stemmer_ru.php'); // подключение PHP-скрипта
+
 // для обработки только определненых символов
 function clean_post_data($data){
     $data = strip_tags($data);
@@ -104,11 +107,13 @@ function searchById($xmlstring, $value) {
 
 function searchByString($xmlstring, $values){
     $id_search_result = array();
+    $ru = new Stemmer_RU; // создание объекта
     foreach ($xmlstring->shop->categories->category as $cat) {
         $result = array();
         $rel = 0;
         foreach ($values as $value) {
-            $pos = mb_stripos((string)$cat, (string)$value);
+            $value_stem = $ru->getWordBase($value);
+            $pos = mb_stripos((string)$cat, (string)$value_stem);
             if ($pos !== false) {
                 $rel++;
             }
@@ -131,7 +136,8 @@ function searchByString($xmlstring, $values){
         $result=array();
         $rel = 0; // количество попаданий
         foreach ($values as $value) {
-            $pos = mb_stripos((string)$off->name, (string)$value);
+            $value_stem = $ru->getWordBase($value);
+            $pos = mb_stripos((string)$off->name, (string)$value_stem);
             if ($pos !== false) {
                 $rel++;
             }
