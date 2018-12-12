@@ -1,5 +1,6 @@
 <?php
 
+// для обработки только определненых символов
 function clean_post_data($data){
     $data = strip_tags($data);
     $data = strtolower($data);
@@ -7,10 +8,19 @@ function clean_post_data($data){
     return $data;
 }
 
+$value = array();
 $input_string = clean_post_data($_GET['value']);
-$value = explode(" ", $input_string);
-$xml=simplexml_load_file("yandex.xml") or die("Error: Cannot create object");
-$final=array();
+if ($input_string) {
+    $values = preg_split('/\s+/', $input_string);
+    foreach ($values as $key => $val) {
+        if (empty($val)) {
+            unset($values[$key]);
+        }
+    }
+    $value = array_values($values);
+}
+$xml = simplexml_load_file("yandex.xml") or die("Error: Cannot create object");
+$final = array();
 
 function countOffersInCat($xmlstring, $catid) {
     $counter = 0;
@@ -64,7 +74,7 @@ function searchById($xmlstring, $value) {
 function searchByString($xmlstring, $values){
     $id_search_result = array();
     foreach ($xmlstring->shop->categories->category as $cat) {
-        $result=array();
+        $result = array();
         $rel = 0;
         foreach ($values as $value) {
             $pos = mb_stripos((string)$cat, (string)$value);
@@ -82,7 +92,7 @@ function searchByString($xmlstring, $values){
             $result['rel'] = $rel;
             array_push($id_search_result, $result);
             
-        }     
+        }
         $result=null;   
     }
 
