@@ -9,22 +9,26 @@ body
 
 .container-fluid
     width: 100%
-    padding-left: 15rem
-    padding-right: 15rem
+    padding-left: 1.5rem
+    padding-right: 1.5rem
     margin-right: auto
     margin-left: auto
     margin-top: 5rem
 
 .search
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
     &-form
-        text-align: center
+        width: 100%
         font-size: 2.5rem
+        text-align: center
         label
             display: block
             margin-bottom: 2rem
         input
             display: inline-block
-            width: 500px
+            width: 50rem
             padding: .375rem .75rem
             font-size: 1.8rem
             line-height: 1.5
@@ -35,6 +39,7 @@ body
             border-radius: .25rem
     &-output
         padding-top: 5rem
+        width: 80rem
         .item
             display: flex
             flex-wrap: nowrap

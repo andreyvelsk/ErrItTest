@@ -14,16 +14,28 @@ body {
 
 .container-fluid {
   width: 100%;
-  padding-left: 15rem;
-  padding-right: 15rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
   margin-right: auto;
   margin-left: auto;
   margin-top: 5rem;
 }
 
+.search {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .search-form {
-  text-align: center;
+  width: 100%;
   font-size: 2.5rem;
+  text-align: center;
 }
 
 .search-form label {
@@ -33,7 +45,7 @@ body {
 
 .search-form input {
   display: inline-block;
-  width: 500px;
+  width: 50rem;
   padding: .375rem .75rem;
   font-size: 1.8rem;
   line-height: 1.5;
@@ -46,6 +58,7 @@ body {
 
 .search-output {
   padding-top: 5rem;
+  width: 80rem;
 }
 
 .search-output .item {

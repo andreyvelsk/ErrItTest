@@ -67,7 +67,11 @@ $(function() {
             if(value.price)
             html += '<div class="price">Цена: ' + value.price + '</div>';
             if(value.count)
-            html += '<div class="count">Товаров в категории: ' + value.count + '</div>';
+                html += '<div class="count">Товаров в категории: ' + value.count + '</div>';
+            else {
+                if(value.count == 0)
+                html += '<div class="count">Товаров в категории: 0</div>';
+            }
             if(value.minprice)
             html += '<div class="price">Минимальная цена товара: ' + value.minprice + '</div>';
             if(value.available == 'true')
