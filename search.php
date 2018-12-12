@@ -11,16 +11,47 @@ function clean_post_data($data){
 $value = array();
 $input_string = clean_post_data($_GET['value']);
 if ($input_string) {
-    $values = preg_split('/\s+/', $input_string);
+    $values = preg_split('/\s+/', $input_string); // разбить строку на массив
     foreach ($values as $key => $val) {
         if (empty($val)) {
             unset($values[$key]);
         }
     }
-    $value = array_values($values);
+    $value = array_values($values); // "переиндексация" массива, ключи идут по порядку
 }
+
 $xml = simplexml_load_file("yandex.xml") or die("Error: Cannot create object");
 $final = array();
+
+$string_search = searchByString($xml, $value);
+// если ввод подходит под id , сперва выводим id
+if (count($value) === 1 && is_numeric($value[0])) {
+    $id_search = searchById($xml, $value[0]);
+    foreach ($id_search as $res) {
+        array_push($final, $res);
+    }
+}
+
+foreach ($string_search as $strres) {
+    array_push($final, $strres);
+}
+
+// обрезаем масств до 5 значений
+$final_cut = array();
+if(count($final) > 5){
+    for ($i = 0; $i < 5; $i++) {
+        $final_cut[$i] = $final[$i];
+    }
+}
+else {
+    for ($i = 0; $i < count($final); $i++) {
+        $final_cut[$i] = $final[$i];
+    }
+}
+
+$json = json_encode($final_cut, JSON_UNESCAPED_UNICODE); 
+
+echo $json;
 
 function countOffersInCat($xmlstring, $catid) {
     $counter = 0;
@@ -98,7 +129,7 @@ function searchByString($xmlstring, $values){
 
     foreach ($xmlstring->shop->offers->offer as $off) {
         $result=array();
-        $rel = 0;
+        $rel = 0; // количество попаданий
         foreach ($values as $value) {
             $pos = mb_stripos((string)$off->name, (string)$value);
             if ($pos !== false) {
@@ -116,41 +147,13 @@ function searchByString($xmlstring, $values){
         }   
     }
 
+    // сортирровка по релевантности - rel
     function cmp($a, $b) { 
-        // return strcmp($a["rel"], $b["rel"]); 
         return intval($a["rel"]) < intval($b["rel"]);
     }
-
     usort($id_search_result, "cmp"); 
+
     return $id_search_result;
 }
-
-$string_search = searchByString($xml, $value);
-if (count($value) === 1 && is_numeric($value[0])) {
-    $id_search = searchById($xml, $value[0]);
-    foreach ($id_search as $res) {
-        array_push($final, $res);
-    }
-}
-
-foreach ($string_search as $strres) {
-    array_push($final, $strres);
-}
-
-$final_cut = array();
-if(count($final) > 5){
-    for ($i = 0; $i < 5; $i++) {
-        $final_cut[$i] = $final[$i];
-    }
-}
-else {
-    for ($i = 0; $i < count($final); $i++) {
-        $final_cut[$i] = $final[$i];
-    }
-}
-
-$json = json_encode($final_cut, JSON_UNESCAPED_UNICODE); 
-
-echo $json;
 ?>
 
