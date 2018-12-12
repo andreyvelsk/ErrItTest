@@ -44,6 +44,10 @@ body {
   border-radius: .25rem;
 }
 
+.search-output {
+  padding-top: 5rem;
+}
+
 .search-output .item {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -55,13 +59,20 @@ body {
           justify-content: flex-start;
 }
 
+.search-output .item:nth-child(even) .item_description {
+  background-color: #ececec;
+}
+
 .search-output .item_description {
-  padding-left: 2rem;
+  width: 100%;
+  padding: 1rem;
+  margin-left: 3rem;
 }
 
 .search-output .item_image {
-  width: 20rem;
+  width: 10rem;
   display: inline-block;
+  background-color: #fff;
 }
 
 .search-output .item_image img {

@@ -3,7 +3,7 @@
 function clean_post_data($data){
     $data = strip_tags($data);
     $data = strtolower($data);
-    $data = preg_replace('~[^a-z0-9 \x80-\xFF]~i', "",$data); 
+    $data = preg_replace('~[^a-z0-9 \x80-\xFF\-]~i', "",$data); 
     return $data;
 }
 
@@ -23,7 +23,7 @@ function countOffersInCat($xmlstring, $catid) {
             }
         }
     }
-    if($counter === 0) $minPrice = '';
+    if($counter === 0) $minPrice = 'Нет товаров';
     $result['count'] = $counter;
     $result['minprice'] = $minPrice;
     return $result;

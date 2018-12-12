@@ -34,16 +34,23 @@ body
             border: 2px solid #ced4da
             border-radius: .25rem
     &-output
-        padding
+        padding-top: 5rem
         .item
             display: flex
             flex-wrap: nowrap
             justify-content: flex-start
+            &:nth-child(even)
+                .item_description
+                    background-color: #ececec
+
             &_description
-                padding-left: 2rem
+                width: 100%
+                padding: 1rem
+                margin-left: 3rem
             
             &_image
-                width: 20rem
+                width: 10rem
                 display: inline-block
+                background-color: #fff
                 img
                     width: 100%
